@@ -1145,7 +1145,8 @@ class Model
 		if (isset($this->updated_at))
 			$this->updated_at = $now;
 
-		if (isset($this->created_at) && $this->is_new_record())
+		// Only overwrite created_at if not already set
+		if (property_exists($this, 'created_at') && $this->created_at === null && $this->is_new_record())
 			$this->created_at = $now;
 	}
 
